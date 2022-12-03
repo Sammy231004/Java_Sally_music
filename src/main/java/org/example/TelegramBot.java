@@ -1,10 +1,12 @@
 package org.example;
 
 import API.MusixMatch;
+import org.example.helper.StreamFile;
 import org.example.menu.ButtonId;
 import org.example.menu.Keyboard;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -36,12 +38,12 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
     private void processingTextCommand(Update update){
-        Keyboard buttonMenu_1 = new Keyboard();
+        Keyboard keyboard = new Keyboard();
         String command = update.getMessage().getText();
         String chatId = update.getMessage().getChatId().toString();
 
         if (command.equals("/start")){
-            sendMessage(buttonMenu_1.drawMenu(chatId),chatId);
+            sendPhotoMessage(keyboard.drawMenu(chatId));
         }
     }
     private void processingButtonCommand(CallbackQuery callbackQuery, Keyboard buttonMenu){
@@ -76,6 +78,15 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         try{
             execute(message);
+        }catch (TelegramApiException telegramApiException){
+            System.out.println(telegramApiException.getMessage());
+        }
+    }
+
+    private void sendPhotoMessage(StreamFile message){
+        try{
+            execute(message.getSendPhoto());
+            message.closeStream();
         }catch (TelegramApiException telegramApiException){
             System.out.println(telegramApiException.getMessage());
         }
