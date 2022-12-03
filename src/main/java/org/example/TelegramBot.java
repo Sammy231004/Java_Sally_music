@@ -1,7 +1,8 @@
 package org.example;
 
-import org.example.menu.Button;
-import org.example.menu.Button_menu;
+import API.MusixMatch;
+import org.example.menu.ButtonId;
+import org.example.menu.Keyboard;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -11,6 +12,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
 public class TelegramBot extends TelegramLongPollingBot {
+
+    private final MusixMatch API = new MusixMatch("5f0ab8375d4a3ab3ac1617167cb538b7");
+
     @Override
     public String getBotUsername() {
         return "SallyMusic";
@@ -28,11 +32,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         } else if (update.hasCallbackQuery());
         {
-            processingButtonCommand(update.getCallbackQuery(), new Button_menu());
+            processingButtonCommand(update.getCallbackQuery(), new Keyboard());
         }
     }
     private void processingTextCommand(Update update){
-        Button_menu buttonMenu_1 = new Button_menu();
+        Keyboard buttonMenu_1 = new Keyboard();
         String command = update.getMessage().getText();
         String chatId = update.getMessage().getChatId().toString();
 
@@ -40,10 +44,10 @@ public class TelegramBot extends TelegramLongPollingBot {
             sendMessage(buttonMenu_1.drawMenu(chatId),chatId);
         }
     }
-    private void processingButtonCommand(CallbackQuery callbackQuery, Button_menu buttonMenu){
+    private void processingButtonCommand(CallbackQuery callbackQuery, Keyboard buttonMenu){
         String chatId = callbackQuery.getMessage().getChatId().toString();
-        Button button = Button.valueOf(callbackQuery.getData());
-        switch (button){
+        ButtonId buttonId = ButtonId.valueOf(callbackQuery.getData());
+        switch (buttonId){
             case START:
                 break;
             case ABOUT:

@@ -11,8 +11,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, ArtistNotFound {
-        String apiKey = "5f0ab8375d4a3ab3ac1617167cb538b7";
-        /*TelegramBot telegramBot = new TelegramBot();
+        TelegramBot telegramBot = new TelegramBot();
         TelegramBotsApi telegramBotsApi = null;
 
         try {
@@ -20,17 +19,6 @@ public class Main {
             telegramBotsApi.registerBot(telegramBot);
         } catch (TelegramApiException ex) {
             System.out.println(ex.getMessage());
-        }*/
-
-        MusixMatch musixMatch = new MusixMatch(apiKey);
-        for (var item:musixMatch.searchAlbumsByArtist("Snoop Dogg")){
-            System.out.println(item);
-        }
-
-        System.out.println("\n\n");
-
-        for (var item:musixMatch.getTracksFromAlbum(33982881)){
-            System.out.println(item);
         }
     }
 }
