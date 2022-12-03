@@ -1,14 +1,19 @@
 package org.example.menu;
 
-public enum Button {
-    ABOUT("ABOUT"), NEXT("NEXT"), BACK("BACK"), START("START");
-    private String idButton;
-    Button(String idButton){
+public class Button {
+    private String text;
+    private ButtonId idButton;
+
+    public Button(String text, ButtonId idButton) {
+        this.text = text;
         this.idButton = idButton;
     }
 
-    public String value(){
-        return this.idButton;
+    public String getText() {
+        return text;
     }
 
+    public ButtonId getIdButton() {
+        return idButton;
+    }
 }
