@@ -10,15 +10,18 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException, ArtistNotFound {
-        TelegramBot telegramBot = new TelegramBot();
-        TelegramBotsApi telegramBotsApi = null;
-
+    public static void main(String[] args){
         try {
-            telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(telegramBot);
-        } catch (TelegramApiException ex) {
+            start();
+        }catch (TelegramApiException ex){
             System.out.println(ex.getMessage());
         }
+    }
+
+    public static void start() throws TelegramApiException {
+        TelegramBot telegramBot = new TelegramBot();
+        TelegramBotsApi telegramBotsApi = null;
+        telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+        telegramBotsApi.registerBot(telegramBot);
     }
 }
